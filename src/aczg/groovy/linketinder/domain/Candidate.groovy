@@ -10,4 +10,10 @@ class Candidate extends Person {
         this.cpf = cpf
         this.age = age
     }
+
+    @Override
+    String toString() {
+        return "Name: $name\nEmail: $email\nState: $state\nCep: $cep\nDescription: $description\n" +
+                "Competences: $competences\nCpf: $cpf\nAge: $age\n"
+    }
 }

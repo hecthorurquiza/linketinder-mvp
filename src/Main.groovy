@@ -1,3 +1,6 @@
+import aczg.groovy.linketinder.Menu
+
 static void main(String[] args) {
-  println "Hello world!"
+  Menu menu = new Menu()
+  menu.showMenu()
 }

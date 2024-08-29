@@ -10,4 +10,10 @@ class Company extends Person {
         this.cnpj = cnpj
         this.country = country
     }
+
+    @Override
+    String toString() {
+        return "Name: ${name}\nEmail: ${email}\nState: ${state}\nCep: ${cep}\nDescription: ${description}\n" +
+                "Competences: ${competences}\nCNPJ: ${cnpj}\nCountry: ${country}\n"
+    }
 }

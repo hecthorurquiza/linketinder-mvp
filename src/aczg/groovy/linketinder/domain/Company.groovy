@@ -13,7 +13,7 @@ class Company extends Person {
 
     @Override
     String toString() {
-        return "Name: ${name}\nEmail: ${email}\nState: ${state}\nCep: ${cep}\nDescription: ${description}\n" +
-                "Competences: ${competences}\nCNPJ: ${cnpj}\nCountry: ${country}\n"
+        return "Nome: ${name}\nEmail: ${email}\nEstado: ${state}\nCEP: ${cep}\nDescrição: ${description}\n" +
+                "Competências: ${competences}\nCNPJ: ${cnpj}\nPaís: ${country}\n"
     }
 }

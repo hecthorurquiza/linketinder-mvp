@@ -13,7 +13,7 @@ class Candidate extends Person {
 
     @Override
     String toString() {
-        return "Name: $name\nEmail: $email\nState: $state\nCep: $cep\nDescription: $description\n" +
-                "Competences: $competences\nCpf: $cpf\nAge: $age\n"
+        return "Nome: $name\nEmail: $email\nEstado: $state\nCEP: $cep\nDescrição: $description\n" +
+                "Competências: $competences\nCPF: $cpf\nIdade: $age\n"
     }
 }

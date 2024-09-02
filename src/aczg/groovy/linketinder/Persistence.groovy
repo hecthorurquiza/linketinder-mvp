@@ -3,11 +3,18 @@ package aczg.groovy.linketinder
 import aczg.groovy.linketinder.domain.Candidate
 import aczg.groovy.linketinder.domain.Company
 
-class Persistence {
-    static List<Candidate> candidates
-    static List<Company> companies
+import javax.management.InstanceAlreadyExistsException
 
-    static void loadCandidates() {
+class Persistence {
+    List<Candidate> candidates
+    List<Company> companies
+
+    Persistence() {
+        loadCandidates()
+        loadCompanies()
+    }
+
+    private void loadCandidates() {
         candidates = new ArrayList<Candidate>( List.of(
                 new Candidate(
                         "João Doe",
@@ -62,7 +69,7 @@ class Persistence {
         ) )
     }
 
-    static void loadCompanies() {
+    private void loadCompanies() {
         companies = new ArrayList<Company>( List.of(
                 new Company(
                         "Google Inc.",
@@ -115,5 +122,23 @@ class Persistence {
                         "Alemanha"
                 )
         ) )
+    }
+
+    void saveCandidate(Candidate newCandidate) {
+        for (Candidate candidate : candidates) {
+            if (candidate.email == newCandidate.email) {
+                throw new InstanceAlreadyExistsException("Já existe um candidato com este email")
+            }
+        }
+        candidates.add(newCandidate)
+    }
+
+    void saveCompany(Company newCompany) {
+        for (Company company : companies) {
+            if (company.email == newCompany.email) {
+                throw new InstanceAlreadyExistsException("Já existe uma empresa com este email")
+            }
+        }
+        companies.add(newCompany)
     }
 }

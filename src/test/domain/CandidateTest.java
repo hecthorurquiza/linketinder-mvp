@@ -38,14 +38,14 @@ class CandidateTest {
     }
 
     @Test
-    void setCpf() {
+    void testNewCpfAtribuition() {
         candidate.setCpf("111.111.111-11");
         assertEquals("111.111.111-11", candidate.getCpf());
     }
 
 
     @Test
-    void setAge() {
+    void testNewAgeAtribuition() {
         candidate.setAge(25);
         assertEquals(25, candidate.getAge());
     }

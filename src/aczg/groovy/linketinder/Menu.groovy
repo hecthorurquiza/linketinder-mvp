@@ -8,7 +8,7 @@ class Menu {
 
     void showMenu() {
         boolean stop = false
-        Persistence.loadCondidates()
+        Persistence.loadCandidates()
         Persistence.loadCompanies()
 
         while (!stop) {

@@ -7,7 +7,7 @@ class Persistence {
     static List<Candidate> candidates
     static List<Company> companies
 
-    static void loadCondidates() {
+    static void loadCandidates() {
         candidates = new ArrayList<Candidate>( List.of(
                 new Candidate(
                         "João Doe",

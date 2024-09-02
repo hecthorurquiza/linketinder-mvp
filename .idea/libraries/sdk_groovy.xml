@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="org.junit.jupiter:junit-jupiter:5.9.1" type="groovy-sdk">
+  <library name="sdk-groovy" type="groovy-sdk">
     <properties version="5.0.0-alpha-1" />
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/groovy-astbuilder-5.0.0-alpha-1.jar!/" />

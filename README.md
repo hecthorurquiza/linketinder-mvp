@@ -1,4 +1,4 @@
-**Visão Geral**
+**Linketinder MVP - by Heithor Urquiza Silva**
 ------------
 
 Linketinder é um sistema baseado em Groovy, projetado para conectar candidatos e empresas de uma forma única e inovadora. O Linketinder tem como objetivo revolucionar a forma como as pessoas encontram oportunidades de trabalho e como as empresas descobrem talentos de alto nível.

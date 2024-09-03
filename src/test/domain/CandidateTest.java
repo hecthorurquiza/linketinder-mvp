@@ -12,7 +12,7 @@ class CandidateTest {
     private static Candidate candidate;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
          candidate = new Candidate(
                 "João Doe",
                 "joao.doe@example.com",
@@ -38,14 +38,14 @@ class CandidateTest {
     }
 
     @Test
-    void testNewCpfAtribuition() {
+    void newCpfAttribution() {
         candidate.setCpf("111.111.111-11");
         assertEquals("111.111.111-11", candidate.getCpf());
     }
 
 
     @Test
-    void testNewAgeAtribuition() {
+    void newAgeAttribution() {
         candidate.setAge(25);
         assertEquals(25, candidate.getAge());
     }

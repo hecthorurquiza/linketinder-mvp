@@ -5,11 +5,14 @@ import aczg.groovy.linketinder.domain.Company
 
 class Menu {
     Scanner sc = new Scanner(System.in)
+    Persistence persistence
+
+    Menu(Persistence persistence) {
+        this.persistence = persistence
+    }
 
     void showMenu() {
         boolean stop = false
-        Persistence.loadCandidates()
-        Persistence.loadCompanies()
 
         while (!stop) {
             print("\n1. Listar candidatos\n2. Listar empresas\n3. Cadastrar candidato\n" +
@@ -18,7 +21,6 @@ class Menu {
             int option = 0
             try {
                 option = sc.nextInt()
-                println()
                 sc.nextLine()
             } catch (InputMismatchException ex) {
                 println "Opção inválida. Digite um valor inteiro.\n"
@@ -28,10 +30,10 @@ class Menu {
 
             switch (option) {
                 case 1:
-                    Persistence.candidates.forEach { println "$it----------------------" }
+                    showCandidates()
                     break
                 case 2:
-                    Persistence.companies.forEach { println "$it----------------------" }
+                    showCompanies()
                     break
                 case 3:
                     registerCandidate()
@@ -44,6 +46,14 @@ class Menu {
                     break
             }
         }
+    }
+
+    private void showCandidates() {
+        this.persistence.getCandidates().forEach { println "$it----------------------" }
+    }
+
+    private void showCompanies() {
+        this.persistence.getCompanies().forEach { println "$it----------------------" }
     }
 
     private List<String> showRegisterForm(List<String> formFields) {
@@ -76,7 +86,7 @@ class Menu {
                 candidateData[5].trim().split(",").collect { str -> str.trim() }.toList(),
                 candidateData[6].trim(),
                 Integer.parseInt(candidateData[7].trim()))
-        Persistence.candidates.add(newCandidate)
+        this.persistence.saveCandidate(newCandidate)
         println "Candidato cadastrado com sucesso!\n"
     }
 
@@ -93,7 +103,7 @@ class Menu {
                 companyData[5].trim().split(",").collect { str -> str.trim() }.toList(),
                 companyData[6].trim(),
                 companyData[7].trim())
-        Persistence.companies.add(newCompany)
+        this.persistence.saveCompany(newCompany)
         println "Empresa cadastrada com sucesso!\n"
     }
 }

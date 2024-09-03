@@ -23,17 +23,17 @@ class PersistenceTest {
     }
 
     @Test
-    void testLoadCandidatesOnContructor() {
+    void loadCandidatesOnConstructor() {
         assertEquals(5, persistence.getCandidates().size());
     }
 
     @Test
-    void testLoadCompaniesOnContructor() {
+    void loadCompaniesOnConstructor() {
         assertEquals(5, persistence.getCompanies().size());
     }
 
     @Test
-    void testSaveCandidateMustNoThrowAnException() {
+    void saveCandidateMustNoThrowAnException() {
         Candidate newCandidate = new Candidate(
                 "Joaquim",
                 "joaquim.doe@example.com",
@@ -49,7 +49,7 @@ class PersistenceTest {
     }
 
     @Test
-    void testSaveCandidateMustThrowAnExceptionForSameEmail() {
+    void saveCandidateMustThrowAnExceptionForSameEmail() {
         Candidate newCandidate = new Candidate(
                 "Joaquim",
                 "joao.doe@example.com",
@@ -65,7 +65,7 @@ class PersistenceTest {
     }
 
     @Test
-    void testSaveCompanyMustNoThrowAnException() {
+    void saveCompanyMustNoThrowAnException() {
         Company newCompany = new Company(
                 "HBO MAX",
                 "hbo@example.com",
@@ -81,7 +81,7 @@ class PersistenceTest {
     }
 
     @Test
-    void testSaveCompanyMustThrowAnExceptionForSameEmail() {
+    void saveCompanyMustThrowAnExceptionForSameEmail() {
         Company newCompany = new Company(
                 "HBO MAX",
                 "aws@example.com",

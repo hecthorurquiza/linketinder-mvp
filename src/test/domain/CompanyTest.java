@@ -38,13 +38,13 @@ class CompanyTest {
     }
 
     @Test
-    void testNewCnpjAtribuition() {
+    void newCNPJAttribution() {
         company.setCnpj("11.111.111/0001-11");
         assertEquals("11.111.111/0001-11", company.getCnpj());
     }
 
     @Test
-    void testNewCountryAtribuition() {
+    void newCountryAttribution() {
         company.setCountry("Brasil");
         assertEquals("Brasil", company.getCountry());
     }

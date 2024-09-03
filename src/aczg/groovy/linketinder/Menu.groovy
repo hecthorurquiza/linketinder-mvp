@@ -3,6 +3,8 @@ package aczg.groovy.linketinder
 import aczg.groovy.linketinder.domain.Candidate
 import aczg.groovy.linketinder.domain.Company
 
+import javax.management.InstanceAlreadyExistsException
+
 class Menu {
     Scanner sc = new Scanner(System.in)
     Persistence persistence
@@ -86,8 +88,13 @@ class Menu {
                 candidateData[5].trim().split(",").collect { str -> str.trim() }.toList(),
                 candidateData[6].trim(),
                 Integer.parseInt(candidateData[7].trim()))
-        this.persistence.saveCandidate(newCandidate)
-        println "Candidato cadastrado com sucesso!\n"
+        try {
+            this.persistence.saveCandidate(newCandidate)
+            println "\nCandidato cadastrado com sucesso!\n"
+        }
+        catch (InstanceAlreadyExistsException ex) {
+            println "\nJá existe um candidato com este email"
+        }
     }
 
     private void registerCompany() {
@@ -103,7 +110,12 @@ class Menu {
                 companyData[5].trim().split(",").collect { str -> str.trim() }.toList(),
                 companyData[6].trim(),
                 companyData[7].trim())
-        this.persistence.saveCompany(newCompany)
-        println "Empresa cadastrada com sucesso!\n"
+        try {
+            this.persistence.saveCompany(newCompany)
+            println "\nEmpresa cadastrada com sucesso!\n"
+        }
+        catch (InstanceAlreadyExistsException ex) {
+            println "\nJá existe uma empresa com este email"
+        }
     }
 }

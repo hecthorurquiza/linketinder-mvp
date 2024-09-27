@@ -44,3 +44,13 @@ groovy Main
 
 ->
 ```
+
+**Atualizações**
+-------------------------
+
+Adição de telas para o Frontend
+
+* Cadastro de empresas
+* Cadastro de candidatos
+* Página de vagas cadastradas
+* Página de candidatos inscritos

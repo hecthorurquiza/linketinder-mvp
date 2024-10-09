@@ -1,6 +1,6 @@
 package aczg.groovy.linketinder.domain.Candidate
 
-import aczg.groovy.linketinder.repository.DatabaseConn
+import groovy.sql.GroovyRowResult
 import groovy.sql.Sql
 
 class CandidateDAO {
@@ -31,38 +31,19 @@ class CandidateDAO {
         )[0]
     }
 
+    GroovyRowResult findByEmail(String email) {
+        return sql.firstRow('SELECT * FROM candidates WHERE email = ?', [email])
+    }
 
-//
-//        def sql
-//
-//        MyDAO() {
-//            sql = Sql.newInstance(dbUrl, username, password, driver)
-//        }
-//
-//        def findAll() {
-//            def results = sql.rows('SELECT * FROM mytable')
-//            results
-//        }
-//
-//        def findById(id) {
-//            def result = sql.firstRow('SELECT * FROM mytable WHERE id = ?', [id])
-//            result
-//        }
-//
-//        def create(data) {
-//            sql.executeInsert('INSERT INTO mytable (name, email) VALUES (?, ?)', [data.name, data.email])
-//        }
-//
-//        def update(id, data) {
-//            sql.executeUpdate('UPDATE mytable SET name = ?, email = ? WHERE id = ?', [data.name, data.email, id])
-//        }
-//
-//        def delete(id) {
-//            sql.executeUpdate('DELETE FROM mytable WHERE id = ?', [id])
-//        }
-//
-//        def close() {
-//            sql.close()
-//        }
-//    }
+    int deleteByEmail(String email) {
+        return sql.executeUpdate('DELETE FROM candidates WHERE email = ?', [email])
+    }
+
+    int update(String email, String cep, String country, String description) {
+        return sql.executeUpdate(
+                'UPDATE candidates SET cep = ?, country = ?, description = ? WHERE email = ?',
+                [cep, country, description, email]
+        )
+    }
+
 }

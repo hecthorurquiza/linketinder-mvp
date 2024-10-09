@@ -1,6 +1,6 @@
 package aczg.groovy.linketinder
 
-import aczg.groovy.linketinder.domain.Candidate
+import aczg.groovy.linketinder.domain.Candidate.Candidate
 import aczg.groovy.linketinder.domain.Company
 
 import javax.management.InstanceAlreadyExistsException

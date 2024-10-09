@@ -1,7 +1,24 @@
-import aczg.groovy.linketinder.Menu
-import aczg.groovy.linketinder.Persistence
+import aczg.groovy.linketinder.domain.Candidate.Candidate
+import aczg.groovy.linketinder.domain.Candidate.CandidateDAO
+import aczg.groovy.linketinder.repository.DatabaseConn
+import groovy.sql.Sql
+
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 static void main(String[] args) {
-  Menu menu = new Menu(new Persistence())
-  menu.showMenu()
+  Sql connection = DatabaseConn.newInstance()
+  CandidateDAO candidateDAO = new CandidateDAO(connection)
+  Candidate candidate = new Candidate(
+          "John",
+          "Whick",
+          LocalDate.of(1990, 3, 10),
+          "babayaga@example.com",
+          "12345678901",
+          "Brazil",
+          "12345-678",
+          "Software Engineer with 5 years of experience"
+  );
+  def result = candidateDAO.create(candidate)
+  print(result[0][0])
 }

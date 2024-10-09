@@ -10,5 +10,6 @@
     <orderEntry type="library" name="sdk-groovy" level="project" />
     <orderEntry type="library" name="junit.jupiter" level="project" />
     <orderEntry type="library" name="mockito.junit.jupiter" level="project" />
+    <orderEntry type="library" name="postgresql" level="project" />
   </component>
 </module>

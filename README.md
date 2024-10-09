@@ -16,6 +16,7 @@ Linketinder é um sistema baseado em Groovy, projetado para conectar candidatos 
 
 * **Linguagem**: Groovy
 * **Execução**: Java Virtual Machine (JVM)
+* **Banco de Dados**: Postgres (um banco de dados Postgres pode ser criado para testes utilizando um arquivo `docker-compose`)
 
 **Executando o Programa**
 -------------------------
@@ -45,12 +46,7 @@ groovy Main
 ->
 ```
 
-**Atualizações**
+**Modelo Entidade-Relacionamento (DER)**
 -------------------------
 
-Adição de telas para o Frontend
-
-* Cadastro de empresas
-* Cadastro de candidatos
-* Página de vagas cadastradas
-* Página de candidatos inscritos
+[Lucidchart DER Linketinder](https://lucid.app/lucidchart/29450b35-7207-48f5-93d1-9ee8553c7639/edit?viewport_loc=-5108%2C-1568%2C2219%2C1045%2C0_0&invitationId=inv_164f1118-18b3-43cf-806b-81405cefdca9)

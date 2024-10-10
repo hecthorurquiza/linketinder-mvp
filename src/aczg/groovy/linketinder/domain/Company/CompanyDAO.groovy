@@ -1,5 +1,6 @@
 package aczg.groovy.linketinder.domain.Company
 
+import groovy.sql.GroovyRowResult
 import groovy.sql.Sql
 
 class CompanyDAO {
@@ -27,4 +28,22 @@ class CompanyDAO {
             ]
         )[0]
     }
+
+    GroovyRowResult findByEmail(String email) {
+        return sql.firstRow('SELECT * FROM companies WHERE email = ?', [email])
+    }
+
+    int deleteByEmail(String email) {
+        return sql.executeUpdate('DELETE FROM companies WHERE email = ?', [email])
+    }
+
+    int update(String email, String description, String cep, String country) {
+        return sql.executeUpdate(
+            '''
+                UPDATE companies SET description = ?, cep = ?, country = ? WHERE email = ?
+            ''',
+            [description, cep, country, email]
+        )
+    }
+
 }

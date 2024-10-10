@@ -30,21 +30,10 @@ CREATE TABLE vacancies (
    name VARCHAR(100) NOT NULL,
    description TEXT,
    state VARCHAR(50) NOT NULL,
-   city VARCHAR(50) NOT NULL
+   city VARCHAR(50) NOT NULL,
+   company_id INT NOT NULL,
+   FOREIGN KEY (company_id) REFERENCES companies(id)
 );
-
--- Add the foreign key to the vacancy table
-ALTER TABLE vacancies
-ADD COLUMN company_id INT,
-ADD CONSTRAINT fk_company
-FOREIGN KEY (company_id) REFERENCES companies(id);
-
--- Add the foreign key to the candidate table
-ALTER TABLE candidates
-ADD COLUMN vacancy_id INT,
-ADD CONSTRAINT fk_company
-FOREIGN KEY (vacancy_id) REFERENCES companies(id);
-
 
 -- Create the competences table
 CREATE TABLE competences (

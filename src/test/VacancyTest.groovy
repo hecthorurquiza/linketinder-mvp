@@ -3,6 +3,7 @@ package test
 import aczg.groovy.linketinder.domain.Vacancy.Vacancy
 import aczg.groovy.linketinder.domain.Vacancy.VacancyDAO
 import aczg.groovy.linketinder.repository.DatabaseConn
+import groovy.sql.GroovyRowResult
 import groovy.sql.Sql
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -35,13 +36,13 @@ class VacancyTest {
                 "Software Engineer",
                 "We are looking for a software engineer to join our team.",
                 "São Paulo",
-                "Brazil"
+                "São Paulo",
         );
         List<Object> result = vacancyDAO.create(vacancy, 2);
         assertEquals("Software Engineer", result.get(1));
         assertEquals("We are looking for a software engineer to join our team.", result.get(2));
         assertEquals("São Paulo", result.get(3));
-        assertEquals("Brazil", result.get(4));
+        assertEquals("São Paulo", result.get(4));
         assertEquals(2, result.get(5));
 
         connection.execute("DELETE FROM vacancies WHERE id = ?", [result.get(0)]);
@@ -53,10 +54,73 @@ class VacancyTest {
                 "Software Engineer",
                 "We are looking for a software engineer to join our team.",
                 "São Paulo",
-                "Brazil"
+                "São Paulo"
         );
         assertThrows(InstanceAlreadyExistsException.class, () -> {
            vacancyDAO.create(vacancy, 100);
         });
+    }
+
+    @Test
+    void testFindVacancyByIdMethod() throws SQLException {
+        Vacancy vacancy = new Vacancy(
+                "Software Engineer",
+                "We are looking for a software engineer to join our team.",
+                "São Paulo",
+                "São Paulo"
+        );
+        List<Object> created = vacancyDAO.create(vacancy, 2);
+        GroovyRowResult result = vacancyDAO.findById(Integer.parseInt(created.get(0).toString()));
+
+        assertEquals("Software Engineer", result['name']);
+        assertEquals("We are looking for a software engineer to join our team.", result['description']);
+        assertEquals("São Paulo", result['state']);
+        assertEquals("São Paulo", result['city']);
+        assertEquals(2, result['company_id']);
+
+        connection.execute("DELETE FROM vacancies WHERE id = ?", [created.get(0)]);
+    }
+
+    @Test
+    void testDeleteVacancyByIdMethod() throws SQLException {
+        Vacancy vacancy = new Vacancy(
+                "Software Engineer",
+                "We are looking for a software engineer to join our team.",
+                "São Paulo",
+                "São Paulo"
+        );
+        List<Object> created = vacancyDAO.create(vacancy, 2);
+        int result = vacancyDAO.deleteById(Integer.parseInt(created.get(0).toString()));
+        assertEquals(1, result);
+
+        GroovyRowResult vacancyDB = vacancyDAO.findById(Integer.parseInt(created.get(0).toString()))
+        assertEquals(null, vacancyDB);
+    }
+
+    @Test
+    void testUpdateVacancyByIdMethod() throws SQLException {
+        Vacancy vacancy = new Vacancy(
+                "Software Engineer",
+                "We are looking for a software engineer to join our team.",
+                "São Paulo",
+                "São Paulo"
+        );
+        List<Object> created = vacancyDAO.create(vacancy, 2);
+        int result = vacancyDAO.updateById(
+            Integer.parseInt(created.get(0).toString()),
+            "Software Developer",
+            "It's your chance to be a part of our team.",
+            "Colorado",
+            "California"
+        );
+        assertEquals(1, result);
+
+        GroovyRowResult resultDB = vacancyDAO.findById(Integer.parseInt(created.get(0).toString()));
+        assertEquals("Software Developer", resultDB['name']);
+        assertEquals("It's your chance to be a part of our team.", resultDB['description']);
+        assertEquals("Colorado", resultDB['state']);
+        assertEquals("California", resultDB['city']);
+
+        connection.execute("DELETE FROM vacancies WHERE id = ?", [created.get(0)]);
     }
 }

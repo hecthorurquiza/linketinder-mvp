@@ -20,5 +20,6 @@ static void main(String[] args) {
           "Software Engineer with 5 years of experience"
   );
   def result = candidateDAO.create(candidate)
-  print(result[0][0])
+  def result2 = candidateDAO.findByEmail("babayaga@example.com")
+  print(result2[0])
 }

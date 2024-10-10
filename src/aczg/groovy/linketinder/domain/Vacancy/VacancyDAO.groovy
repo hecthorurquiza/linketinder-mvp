@@ -33,4 +33,19 @@ class VacancyDAO {
             ]
         )[0]
     }
+
+    GroovyRowResult findById(int id) {
+        return sql.firstRow('SELECT * FROM vacancies WHERE id = ?', [id])
+    }
+
+    int deleteById(int id) {
+        return sql.executeUpdate('DELETE FROM vacancies WHERE id = ?', [id])
+    }
+
+    int updateById(int id, String name, String description, String state, String city) {
+        return sql.executeUpdate(
+                'UPDATE vacancies SET name = ?, description = ?, state = ?, city = ? WHERE id = ?',
+                [name, description, state, city, id]
+        )
+    }
 }

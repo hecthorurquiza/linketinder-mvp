@@ -33,11 +33,15 @@ class CompanyDAO {
         return sql.firstRow('SELECT * FROM companies WHERE email = ?', [email])
     }
 
-    int deleteByEmail(String email) {
+    List<GroovyRowResult> findAll() {
+        return sql.rows('SELECT * FROM companies')
+    }
+
+    int delete(String email) {
         return sql.executeUpdate('DELETE FROM companies WHERE email = ?', [email])
     }
 
-    int update(String email, String description, String cep, String country) {
+    int update(String email, String cep, String country, String description) {
         return sql.executeUpdate(
             '''
                 UPDATE companies SET description = ?, cep = ?, country = ? WHERE email = ?

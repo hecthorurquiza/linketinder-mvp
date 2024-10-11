@@ -6,7 +6,7 @@
     </inspection_tool>
     <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <Languages>
-        <language minSize="87" name="Groovy" />
+        <language minSize="94" name="Groovy" />
         <language minSize="216" name="TypeScript" />
       </Languages>
     </inspection_tool>

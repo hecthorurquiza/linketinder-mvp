@@ -25,4 +25,10 @@ class Company {
         this.cep = cep
         this.competences = []
     }
+
+    @Override
+    String toString() {
+        return "Nome: $name\nCNPJ: $cnpj\nEmail: $email\nDescrição: $description\nPaís: $country" +
+                "\nCEP: $cep\nCompetências: $competences"
+    }
 }

@@ -83,7 +83,7 @@ class CompanyTest {
                 "12345-678"
         );
         companyDAO.create(company);
-        int deleted = companyDAO.deleteByEmail(company.getEmail());
+        int deleted = companyDAO.delete(company.getEmail());
         assertEquals(1, deleted);
 
         GroovyRowResult result = companyDAO.findByEmail(company.getEmail());

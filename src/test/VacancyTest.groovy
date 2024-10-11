@@ -90,7 +90,7 @@ class VacancyTest {
                 "São Paulo"
         );
         List<Object> created = vacancyDAO.create(vacancy, 2);
-        int result = vacancyDAO.deleteById(Integer.parseInt(created.get(0).toString()));
+        int result = vacancyDAO.delete(Integer.parseInt(created.get(0).toString()));
         assertEquals(1, result);
 
         GroovyRowResult vacancyDB = vacancyDAO.findById(Integer.parseInt(created.get(0).toString()))
@@ -106,7 +106,7 @@ class VacancyTest {
                 "São Paulo"
         );
         List<Object> created = vacancyDAO.create(vacancy, 2);
-        int result = vacancyDAO.updateById(
+        int result = vacancyDAO.update(
             Integer.parseInt(created.get(0).toString()),
             "Software Developer",
             "It's your chance to be a part of our team.",

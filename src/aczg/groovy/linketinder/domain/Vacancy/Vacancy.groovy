@@ -17,4 +17,9 @@ class Vacancy {
         this.state = state
         this.city = city
     }
+
+    @Override
+    String toString() {
+        return "$name ($state, $city) -> $description"
+    }
 }

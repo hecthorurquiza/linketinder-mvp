@@ -5,7 +5,9 @@ import aczg.groovy.linketinder.domain.Candidate.CandidateDAO
 import aczg.groovy.linketinder.domain.Company.Company
 import aczg.groovy.linketinder.domain.Company.CompanyDAO
 import aczg.groovy.linketinder.domain.Competence.CompetenceDAO
+import aczg.groovy.linketinder.domain.Vacancy.Vacancy
 import aczg.groovy.linketinder.domain.Vacancy.VacancyDAO
+import groovy.sql.GroovyRowResult
 import groovy.sql.Sql
 
 import java.time.LocalDate
@@ -31,8 +33,6 @@ class Menu {
         while (!stop) {
             print("Escolha um modelo para ver as ações disponíveis: \n1. Candidato \n2. Empresa \n3. Competências" +
                     "\n4. Vagas \n0. Sair \n\n-> ")
-//            print("\n1. Listar candidatos\n2. Listar empresas\n3. Cadastrar candidato\n" +
-//                    "4. Cadastrar empresa\n\n0. Sair\n\n-> ")
 
             int option = 0
             try {
@@ -55,7 +55,7 @@ class Menu {
                     registerCandidate()
                     break
                 case 4:
-                    registerCompany()
+                    showVacancyActions()
                     break
                 case 0:
                     stop = true
@@ -283,6 +283,116 @@ class Menu {
             println "** Empresa atualizada com sucesso **"
         } else {
             println "!! Nenhuma empresa foi atualizada !!"
+        }
+    }
+
+//    Vacancy
+    private void showVacancyActions() {
+        boolean stop = false
+
+        while (!stop) {
+            print("\n\n1. Cadastrar vaga \n2. Procurar vaga \n3. Deletar vaga \n4. Atualizar vaga" +
+                    "\n0. Voltar \n\n-> ")
+
+            int option = 0
+            try {
+                option = sc.nextInt()
+                sc.nextLine()
+            } catch (InputMismatchException ex) {
+                println "Opção inválida. Digite um valor inteiro.\n"
+                sc.next()
+                continue
+            }
+
+            switch (option) {
+                case 1:
+                    createVacancy()
+                    break
+                case 2:
+                    searchVacancy()
+                    break
+                case 3:
+                    deleteVacancy()
+                    break
+                case 4:
+                    updateVacancy()
+                    break
+                case 0:
+                    stop = true
+                    break
+            }
+        }
+    }
+
+    private void createVacancy() {
+        print "Insira o email da empresa responsável pela vaga: "
+        String companyEmail = sc.nextLine()
+        GroovyRowResult company = this.companyDAO.findByEmail(companyEmail)
+
+        List<String> labels = ["Nome", "Descrição", "Estado", "Cidade"]
+        List<String> data = showRegisterForm(labels)
+        Vacancy newVacancy = new Vacancy(
+                data[0].trim() as String,
+                data[1].trim() as String,
+                data[2].trim() as String,
+                data[3].trim() as String
+        )
+        List<Object> created = this.vacancyDAO.create(newVacancy, company['id'] as int)
+
+
+        if (created.size() > 0) {
+            println("** Vaga registrada com sucesso para a empresa ${company['name']} **")
+        } else {
+            println("!! Erro ao cadastrar vaga !!")
+        }
+    }
+
+    private void searchVacancy() {
+        print "Insiro o nome da vaga(s) que deseja pesquisar: "
+        String name = sc.nextLine()
+        List<Vacancy> vacancies = []
+        this.vacancyDAO.findByName(name).forEach { it ->
+            Vacancy vacancy = new Vacancy(
+                    it['name'] as String,
+                    it['description'] as String,
+                    it['state'] as String,
+                    it['city'] as String
+            )
+            vacancies.add(vacancy)
+        }
+
+        if (vacancies.size() > 0) {
+            println("Vagas encontradas:")
+            vacancies.forEach { print "$it\n------------------------\n" }
+        } else {
+            println("!! Nenhuma vaga encontrada !!")
+        }
+    }
+
+    private void deleteVacancy() {
+        print "Insiro o id da vaga que deseja deletar: "
+        int id = sc.nextInt()
+        sc.nextLine()
+        int count = this.vacancyDAO.delete(id)
+        if (count == 1) {
+            println "** Vaga deletada com sucesso **"
+        } else {
+            println "!! Nenhuma vaga foi deletada !!"
+        }
+    }
+
+    private void updateVacancy() {
+        print "Insiro o id da vaga que deseja atualizar: "
+        int id = sc.nextInt()
+        sc.nextLine()
+        List<String> labels = ["Nome", "Descrição", "Estado", "Cidade"]
+        List<String> data = showRegisterForm(labels)
+        int count = this.vacancyDAO.update(id, data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim())
+
+        if (count == 1) {
+            println "** Vaga atualizada com sucesso **"
+        } else {
+            println "!! Nenhuma vaga foi atualizada !!"
         }
     }
 }

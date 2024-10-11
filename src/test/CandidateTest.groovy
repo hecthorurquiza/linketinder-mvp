@@ -94,7 +94,7 @@ class CandidateTest {
                 "Software Engineer with 5 years of experience"
         );
         candidateDAO.create(candidate);
-        int deleted = candidateDAO.deleteByEmail(candidate.getEmail());
+        int deleted = candidateDAO.delete(candidate.getEmail());
         assertEquals(1, deleted);
 
         GroovyRowResult result = candidateDAO.findByEmail(candidate.getEmail());

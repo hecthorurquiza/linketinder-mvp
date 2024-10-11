@@ -35,10 +35,10 @@ class Candidate {
         this.competences = []
     }
 
-//
-//    @Override
-//    String toString() {
-//        return "Nome: $name\nEmail: $email\nEstado: $state\nCEP: $cep\nDescrição: $description\n" +
-//                "Competências: $competences\nCPF: $cpf\nIdade: $age\n"
-//    }
+
+    @Override
+    String toString() {
+        return "Nome completo: $firstName $lastName\nNascimento: $birthday\nEmail: $email\nCPF: $cpf\nPaís: $country" +
+                "\nCEP: $cep\nDescricão: $description\nCompetências: $competences"
+    }
 }

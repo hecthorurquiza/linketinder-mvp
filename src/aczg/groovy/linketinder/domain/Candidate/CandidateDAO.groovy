@@ -35,7 +35,11 @@ class CandidateDAO {
         return sql.firstRow('SELECT * FROM candidates WHERE email = ?', [email])
     }
 
-    int deleteByEmail(String email) {
+    List<GroovyRowResult> findAll() {
+        return sql.rows('SELECT * FROM candidates')
+    }
+
+    int delete(String email) {
         return sql.executeUpdate('DELETE FROM candidates WHERE email = ?', [email])
     }
 

@@ -52,7 +52,7 @@ class Menu {
                     showCompanyActions()
                     break
                 case 3:
-                    registerCandidate()
+                    showCompetenceActions()
                     break
                 case 4:
                     showVacancyActions()
@@ -153,6 +153,8 @@ class Menu {
                     it['cep'] as String,
                     it['description'] as String
             )
+            List<String> competences = competenceDAO.findCandidateCompetences(it['id'] as int)
+            candidate.setCompetences(competences)
             candidates.add(candidate)
         }
 
@@ -286,6 +288,129 @@ class Menu {
         }
     }
 
+//    Competence
+    private void showCompetenceActions() {
+        boolean stop = false
+
+        while (!stop) {
+            print("\n\n1. Cadastrar competência(s) para um candidato \n2. Cadastrar competência(s) para uma vaga" +
+                    "\n3. Listar competências existentes \n4. Deletar competência \n5. Atualizar competência" +
+                    "\n0. Voltar \n\n-> ")
+
+            int option = 0
+            try {
+                option = sc.nextInt()
+                sc.nextLine()
+            } catch (InputMismatchException ex) {
+                println "Opção inválida. Digite um valor inteiro.\n"
+                sc.next()
+                continue
+            }
+
+            switch (option) {
+                case 1:
+                    createCompetenceForCandidate()
+                    break
+                case 2:
+                    createCompetenceForVacancy()
+                    break
+                case 3:
+                    showCompetences()
+                    break
+                case 4:
+                    deleteCompetence()
+                    break
+                case 5:
+                    updateCompetence()
+                    break
+                case 0:
+                    stop = true
+                    break
+            }
+        }
+    }
+
+    private void createCompetenceForCandidate() {
+        print "Informe o email do candidato: "
+        String email = sc.nextLine()
+        GroovyRowResult candidate = candidateDAO.findByEmail(email)
+
+        print "Informe uma ou mais competência(s) separadas por (,): "
+        String input = sc.nextLine()
+        List<String> competences = input.split(",")
+
+        int count = 0
+        for (String competence : competences) {
+            Object created = competenceDAO.createForCandidate(competence.trim(), candidate['id'] as int)
+            if (created['competenceId']) {
+                count++
+            }
+        }
+
+        if (count == competences.size()) {
+            println "** Competências cadastradas com sucesso **"
+        } else {
+            println "!! Falha no cadastro de competências !!"
+        }
+    }
+
+    private void createCompetenceForVacancy() {
+        print "Informe o id da vaga: "
+        int id = sc.nextLine().toInteger()
+        GroovyRowResult vacancy = vacancyDAO.findById(id)
+
+        print "Informe uma ou mais competência(s) separadas por (,): "
+        String input = sc.nextLine()
+        List<String> competences = input.split(",")
+
+        int count = 0
+        for (String competence : competences) {
+            Object created = competenceDAO.createForVacancy(competence.trim(), vacancy['id'] as int)
+            if (created['competenceId']) {
+                count++
+            }
+        }
+
+        if (count == competences.size()) {
+            println "** Competências cadastradas com sucesso **"
+        } else {
+            println "!! Falha no cadastro de competências !!"
+        }
+    }
+
+    private void showCompetences() {
+        List<GroovyRowResult> competences = competenceDAO.findAll()
+
+        print "Competências: \n--------------------\n"
+        competences.forEach { println it['name']}
+        print("--------------------\n")
+    }
+
+    private void deleteCompetence() {
+        print "Informe o id da competencia que deseja deletar: "
+        int id = sc.nextLine().toInteger()
+        int count = competenceDAO.deleteById(id)
+        if (count == 1) {
+            println "** Competência deletada com sucesso **"
+        } else {
+            println "!! Nenhuma competência foi deletada !!"
+        }
+    }
+
+    private void updateCompetence() {
+        print "Informe o id da competência que deseja atualizar: "
+        int id = sc.nextLine().toInteger()
+
+        print "Informe a nova competência: "
+        String name = sc.nextLine()
+        int count = competenceDAO.updateById(id, name)
+        if (count == 1) {
+            println "** Competência atualizada com sucesso **"
+        } else {
+            println "!! Nenhuma competência foi atualizada !!"
+        }
+    }
+
 //    Vacancy
     private void showVacancyActions() {
         boolean stop = false
@@ -358,6 +483,8 @@ class Menu {
                     it['state'] as String,
                     it['city'] as String
             )
+            List<String> competences = competenceDAO.findVacancyCompetences(it['id'] as int)
+            vacancy.setCompetences(competences)
             vacancies.add(vacancy)
         }
 

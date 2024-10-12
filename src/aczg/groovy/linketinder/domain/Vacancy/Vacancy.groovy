@@ -5,6 +5,7 @@ class Vacancy {
     String description
     String state
     String city
+    List<String> competences
 
     Vacancy(
         String name,
@@ -16,10 +17,11 @@ class Vacancy {
         this.description = description
         this.state = state
         this.city = city
+        this.competences = []
     }
 
     @Override
     String toString() {
-        return "$name ($state, $city) -> $description"
+        return "$name ($state, $city) \nDescrição: $description \nCompetências: $competences"
     }
 }

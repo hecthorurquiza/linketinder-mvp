@@ -38,6 +38,10 @@ class VacancyDAO {
         return sql.rows("SELECT * FROM vacancies WHERE name like '%' || ? || '%' ", [name])
     }
 
+    GroovyRowResult findById(int id) {
+        return sql.firstRow("SELECT * FROM vacancies WHERE id = ?", [id])
+    }
+
     int delete(int id) {
         return sql.executeUpdate('DELETE FROM vacancies WHERE id = ?', [id])
     }

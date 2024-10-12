@@ -78,6 +78,10 @@ class CompetenceDAO {
         return competences
     }
 
+    List<GroovyRowResult> findAll() {
+        return sql.rows("SELECT * FROM competences")
+    }
+
     GroovyRowResult findById(int id) {
         return sql.firstRow("SELECT * FROM competences WHERE id = ?", [id])
     }

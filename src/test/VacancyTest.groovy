@@ -62,6 +62,31 @@ class VacancyTest {
     }
 
     @Test
+    void testFindVacanciesByNameMethod() {
+        Vacancy vacancy1 = new Vacancy(
+                "Software Engineer",
+                "We are looking for a software engineer to join our team.",
+                "São Paulo",
+                "São Paulo"
+        )
+        Vacancy vacancy2 = new Vacancy(
+                "Software Developer",
+                "We are looking for a software developer to join our team.",
+                "São Paulo",
+                "São Paulo"
+        )
+
+        List<Object> created1 =  vacancyDAO.create(vacancy1, 2);
+        List<Object> created2 =  vacancyDAO.create(vacancy2, 2);
+
+        List<GroovyRowResult> result = vacancyDAO.findByName("Software");
+        assertEquals(2, result.size());
+
+        connection.execute("DELETE FROM vacancies WHERE id = ?", [created1.get(0)]);
+        connection.execute("DELETE FROM vacancies WHERE id = ?", [created2.get(0)]);
+    }
+    
+    @Test
     void testFindVacancyByIdMethod() throws SQLException {
         Vacancy vacancy = new Vacancy(
                 "Software Engineer",

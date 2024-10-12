@@ -82,6 +82,25 @@ class CandidateTest {
     }
 
     @Test
+    void testFindAllMethod() throws SQLException {
+        Candidate candidate = new Candidate(
+                "Ben",
+                "Aflikan",
+                LocalDate.of(1990, 3, 10),
+                "aflikan@example.com",
+                "12345678901",
+                "Brazil",
+                "12345-678",
+                "Software Engineer with 5 years of experience"
+        );
+        candidateDAO.create(candidate);
+        List<GroovyRowResult> result = candidateDAO.findAll();
+        assertEquals(6, result.size());
+
+        connection.execute("DELETE FROM candidates WHERE email = 'aflikan@example.com'");
+    }
+
+    @Test
     void testDeleteByEmailMethod() throws SQLException {
         Candidate candidate = new Candidate(
                 "Ben",

@@ -86,13 +86,13 @@ class CompetenceDAO {
         return sql.firstRow("SELECT * FROM competences WHERE id = ?", [id])
     }
 
-    int deleteById(int id) {
+    int delete(int id) {
         sql.executeUpdate("DELETE FROM candidate_competence WHERE competence_id = ?", [id])
         sql.executeUpdate("DELETE FROM vacancy_competence WHERE competence_id = ?", [id])
         return sql.executeUpdate("DELETE FROM competences WHERE id = ?", [id])
     }
 
-    int updateById(int id, String name) {
+    int update(int id, String name) {
         return sql.executeUpdate("UPDATE competences SET name = ? WHERE id = ?", [name, id])
     }
 }

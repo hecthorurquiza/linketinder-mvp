@@ -389,7 +389,7 @@ class Menu {
     private void deleteCompetence() {
         print "Informe o id da competencia que deseja deletar: "
         int id = sc.nextLine().toInteger()
-        int count = competenceDAO.deleteById(id)
+        int count = competenceDAO.delete(id)
         if (count == 1) {
             println "** Competência deletada com sucesso **"
         } else {
@@ -403,7 +403,7 @@ class Menu {
 
         print "Informe a nova competência: "
         String name = sc.nextLine()
-        int count = competenceDAO.updateById(id, name)
+        int count = competenceDAO.update(id, name)
         if (count == 1) {
             println "** Competência atualizada com sucesso **"
         } else {

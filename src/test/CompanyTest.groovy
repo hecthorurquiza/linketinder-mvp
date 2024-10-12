@@ -73,6 +73,23 @@ class CompanyTest {
     }
 
     @Test
+    void testFindAllMethod() throws SQLException {
+        Company company = new Company(
+                "ABC Corporation",
+                "12.345.678/0001-93",
+                "contact@abccorp.com",
+                "We are a leading provider of innovative solutions.",
+                "Brazil",
+                "12345-678"
+        );
+        companyDAO.create(company);
+        List<GroovyRowResult> result = companyDAO.findAll();
+        assertEquals(6, result.size());
+
+        connection.execute("DELETE FROM companies WHERE email = 'contact@abccorp.com'");
+    }
+
+    @Test
     void testDeleteByEmailMethod() throws SQLException {
         Company company = new Company(
                 "ABC Corporation",
@@ -104,9 +121,9 @@ class CompanyTest {
 
         int updated = companyDAO.update(
                 company.getEmail(),
-                "New company for digital inovations",
                 "12345-679",
-                "USA"
+                "USA",
+                "New company for digital inovations",
         );
         assertEquals(1, updated);
 
